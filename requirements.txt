@@ -1,0 +1,19 @@
+# Audio processing
+sounddevice
+numpy
+wavio
+
+# Speech recognition
+whisper
+torch  # Required for Whisper
+openai-whisper
+
+# GUI automation
+pyautogui
+
+
+# Logging (if using logging module)
+logging
+
+# System utilities
+os
