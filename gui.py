@@ -107,7 +107,7 @@ class VoiceControlGUI:
         try:
             self.transcriber = LiveTranscriber()  # Create instance here
             def process_command(text):
-                self.update_output(f"You said: {text}")
+                self.update_output(f"{text}")
                 execute_command(text)
             self.transcriber.live_transcribe(callback=process_command)
         except Exception as e:
