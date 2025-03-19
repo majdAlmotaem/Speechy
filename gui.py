@@ -7,27 +7,41 @@ class VoiceControlGUI:
         self.master = master
         master.title("Voice Control Assistant")
         master.geometry("400x300")
+        
+        # Dark mode colors
+        self.bg_color = '#1E1E1E'  # Dark background
+        self.text_color = '#FFFFFF'  # White text
+        self.button_bg = '#2C2C2C'  # Slightly lighter dark background for buttons
+        
+        # Configure master window
+        master.configure(bg=self.bg_color)
 
         # Status Label
         self.status_label = tk.Label(
             master, 
             text="Voice Control Ready", 
-            font=("Arial", 12)
+            font=("Arial", 12, "bold"),
+            fg=self.text_color,
+            bg=self.bg_color
         )
         self.status_label.pack(pady=20)
 
         # Button Frame
-        button_frame = tk.Frame(master)
+        button_frame = tk.Frame(master, bg=self.bg_color)
         button_frame.pack(pady=10)
 
         # Play Button (Unicode play symbol ▶)
         self.start_button = tk.Button(
             button_frame, 
             text="▶", 
-            font=("Arial", 25, "bold"),  # Increased font size
-            fg='green',  # Green color for play symbol
+            font=("Arial", 12, "bold"),
+            fg='#00FF00',  # Bright green for play
+            bg=self.button_bg,
             command=self.start_voice_control,
-            width=3  # Original width
+            width=3,
+            height=1,
+            activebackground='#3C3C3C',
+            activeforeground='#00CC00'
         )
         self.start_button.pack(side=tk.LEFT, padx=10)
 
@@ -35,11 +49,15 @@ class VoiceControlGUI:
         self.stop_button = tk.Button(
             button_frame, 
             text="◼", 
-            font=("Arial", 25, "bold"),  # Increased font size
-            fg='red',  # Red color for stop symbol
+            font=("Arial", 12, "bold"),
+            fg='#FF0000',  # Bright red for stop
+            bg=self.button_bg,
             command=self.stop_voice_control,
             state=tk.DISABLED,
-            width=3  # Original width
+            width=3,
+            height=1,
+            activebackground='#3C3C3C',
+            activeforeground='#CC0000'
         )
         self.stop_button.pack(side=tk.LEFT, padx=10)
 
@@ -47,7 +65,12 @@ class VoiceControlGUI:
         self.output_text = tk.Text(
             master, 
             height=10, 
-            width=50
+            width=50,
+            bg='#2C2C2C',  # Dark background for text area
+            fg=self.text_color,  # White text
+            insertbackground=self.text_color,  # Cursor color
+            selectbackground='#4C4C4C',  # Selection background
+            selectforeground=self.text_color
         )
         self.output_text.pack(pady=10)
 
@@ -58,7 +81,7 @@ class VoiceControlGUI:
     def start_voice_control(self):
         if not self.is_running:
             self.is_running = True
-            self.status_label.config(text="Voice Control Running...")
+            self.status_label.config(text="Voice Control Running...", fg='#00FF00')
             self.start_button.config(state=tk.DISABLED)
             self.stop_button.config(state=tk.NORMAL)
 
@@ -72,7 +95,7 @@ class VoiceControlGUI:
     def stop_voice_control(self):
         if self.is_running:
             self.is_running = False
-            self.status_label.config(text="Voice Control Stopped")
+            self.status_label.config(text="Voice Control Stopped", fg='#FF0000')
             self.start_button.config(state=tk.NORMAL)
             self.stop_button.config(state=tk.DISABLED)
 
@@ -97,12 +120,11 @@ def run_gui():
     
     # Position window at top-left corner
     root.geometry('400x300+0+0')
-        
+    
     # Make window always on top
     root.attributes('-topmost', True)
-
+    
     root.mainloop()
-
 
 if __name__ == "__main__":
     run_gui()
