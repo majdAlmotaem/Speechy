@@ -100,7 +100,7 @@ def run_gui():
         
     # Make window always on top
     root.attributes('-topmost', True)
-    
+
     root.mainloop()
 
 
