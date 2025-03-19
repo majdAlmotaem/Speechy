@@ -1,8 +1,6 @@
 import logging
 
-
-RECORDING_DURATION = 5
-SAMPLE_RATE = 44100
+SAMPLE_RATE = 16000
 WHISPER_MODEL = "base"
-AUDIO_FILE = "command.wav"
 LOG_LEVEL = logging.INFO
+SILENCE_THRESHOLD = 0.02 # Used in live_transcriber.py
