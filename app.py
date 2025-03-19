@@ -6,8 +6,8 @@ from modules.command_executor import execute_command
 # Ensure FFmpeg path is set
 os.environ['PATH'] += os.pathsep + r'C:\ffmpeg-2025-03-17-git-5b9356f18e-full_build\bin'
 
-def main():
-    print("Voice control started. Say 'exit' to stop.")
+def main(output_callback=print):
+    output_callback("Voice control started. Say 'exit' to stop.")
     
     # Pre-load model for efficiency
     model = load_whisper_model(model_size="small")
@@ -22,8 +22,8 @@ def main():
             model=model, 
             language='en'
         )
-
-        print(f"You said: {command}")
+        
+        output_callback(f"You said: {command}")
 
         # Execute command
         continue_execution = execute_command(command)
@@ -32,7 +32,7 @@ def main():
         if continue_execution is False:
             break
 
-    print("Program stopped.")
+    output_callback("Program stopped.")
 
 if __name__ == "__main__":
     main()
