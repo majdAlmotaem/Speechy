@@ -1,12 +1,15 @@
 import tkinter as tk
 import threading
 import app  # Import the main application logic
+from modules.live_transcriber import live_transcribe
+from modules.command_executor import execute_command
 
 class VoiceControlGUI:
     def __init__(self, master):
         self.master = master
         master.title("Voice Control Assistant")
         master.geometry("400x300")
+        self.transcriber = None
         
         # Dark mode colors
         self.bg_color = '#1E1E1E'  # Dark background
@@ -99,10 +102,16 @@ class VoiceControlGUI:
             self.start_button.config(state=tk.NORMAL)
             self.stop_button.config(state=tk.DISABLED)
 
+            if self.transcriber:
+                self.transcriber.stop()
+                
     def run_voice_control(self):
         try:
-            # Modify app.main() to accept a callback for output
-            app.main(output_callback=self.update_output)
+            def process_command(text):
+                self.update_output(f"You said: {text}")
+                execute_command(text)
+            
+            live_transcribe(callback=process_command)
         except Exception as e:
             self.update_output(f"Error: {str(e)}")
 

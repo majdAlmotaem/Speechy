@@ -1,5 +1,6 @@
 import whisper
-from config import WHISPER_MODEL
+from config import WHISPER_MODEL, SAMPLE_RATE
+
 
 def load_whisper_model(model_size=WHISPER_MODEL):
     """
