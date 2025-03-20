@@ -1,14 +1,11 @@
 import whisper
 from config import WHISPER_MODEL
 
-def transcribe_audio(audio_data, model, language=None, is_file=True):
+def transcribe_audio(file_path, model, language=None):
+    """Transcribe audio from a file path using the Whisper model."""
     try:
         transcribe_kwargs = {'language': language} if language else {}
-        if is_file:
-            result = model.transcribe(audio_data, **transcribe_kwargs)
-        else:
-            # Assuming audio_data is a NumPy array
-            result = model.transcribe(audio_data, **transcribe_kwargs)
+        result = model.transcribe(file_path, **transcribe_kwargs)
         return result["text"]
     except Exception as e:
         print(f"Transcription error: {e}")
